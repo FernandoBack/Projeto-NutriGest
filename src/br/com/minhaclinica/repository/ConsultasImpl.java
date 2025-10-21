@@ -9,25 +9,31 @@ import java.util.List;
 import java.util.Objects;
 
 
-public final class ConsultasImpl {
+public final class ConsultasImpl implements IConsultaManager {
 
 
-    private static final List<Consulta> ListaConsultas = new ArrayList<>();
+    private static final ConsultasImpl instance = new ConsultasImpl();
+
+
+    public static ConsultasImpl getInstance() {
+        return instance;
+    }
+
+
+    private final List<Consulta> ListaConsultas;
 
 
     private ConsultasImpl() {
-
+        this.ListaConsultas = new ArrayList<>();
     }
 
-    /**
-     * @param consulta A consulta a ser agendada (não pode ser nula).
-     * @throws NullPointerException se a consulta for nula.
-     */
-    public static void agendar(Consulta consulta) {
+
+    @Override
+    public void AdicionaConsulta(Consulta consulta) {
         Objects.requireNonNull(consulta, "Não é possível agendar uma consulta nula.");
 
-        // Adiciona a consulta à lista geral
-        ListaConsultas.add(consulta);
+
+        this.ListaConsultas.add(consulta);
 
 
         Nutricionista nutriResponsavel = consulta.getNutricionista();
@@ -38,10 +44,38 @@ public final class ConsultasImpl {
                 " em " + consulta.getDataHoraFormatada());
     }
 
-    /**
-     * @return Uma lista (List<Consulta>) que não pode ser alterada.
-     */
-    public static List<Consulta> getListaConsultas() {
-        return Collections.unmodifiableList(ListaConsultas);
+
+    @Override
+    public List<Consulta> RetornaConsultas() {
+
+        return Collections.unmodifiableList(this.ListaConsultas);
+    }
+
+
+    @Override
+    public void DeletaConsulta(int posicao) {
+        try {
+
+            Consulta consultaRemovida = this.ListaConsultas.remove(posicao);
+
+
+            Nutricionista nutri = consultaRemovida.getNutricionista();
+
+
+            if (nutri.getNumeroConsultas() > 0) {
+                nutri.setNumeroConsultas(nutri.getNumeroConsultas() - 1);
+            }
+
+            System.out.println("Consulta de " + consultaRemovida.getNomePaciente() + " foi removida com sucesso.");
+
+        } catch (IndexOutOfBoundsException e) {
+
+            System.err.println("Erro ao deletar: Posição inválida: " + posicao);
+            System.err.println("A lista tem " + this.ListaConsultas.size() + " itens (índices de 0 a " + (this.ListaConsultas.size() - 1) + ").");
+
+        } catch (Exception e) {
+            // 8. Tratamento de Erro: Captura genérica para outros erros inesperados
+            System.err.println("Um erro inesperado ocorreu ao deletar a consulta: " + e.getMessage());
+        }
     }
 }
