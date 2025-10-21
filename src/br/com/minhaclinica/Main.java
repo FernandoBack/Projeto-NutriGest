@@ -20,15 +20,13 @@ public class Main {
 
         try {
 
-            System.out.println("\n[ETAPA 1: CRIAÇÃO DE OBJETOS]");
-
 
             Funcionario recepcionista = new Funcionario("Carlos Andrade", 28, 2800.00);
 
 
             Nutricionista draElisa = new Nutricionista("Dra. Elisa Mendes", 34, 6500.00, 0);
 
-            // 1.3 Consultas
+
             LocalDateTime data1 = LocalDateTime.of(2024, 10, 20, 9, 0);
             LocalDateTime data2 = LocalDateTime.of(2024, 10, 20, 10, 30);
             LocalDateTime data3 = LocalDateTime.of(2024, 10, 21, 14, 0);
@@ -37,7 +35,6 @@ public class Main {
             Consulta consulta2 = new Consulta(draElisa, "Maria Silva", data2);
             Consulta consulta3 = new Consulta(draElisa, "Roberto Gomes", data3);
 
-            System.out.println("Objetos criados com sucesso.");
 
 
             System.out.println("\n[ETAPA 2: PROCESSAMENTO E GERENCIAMENTO DE DADOS]");
