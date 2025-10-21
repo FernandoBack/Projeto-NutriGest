@@ -37,8 +37,8 @@ public final class ConsultasImpl implements IConsultaManager {
 
 
         Nutricionista nutriResponsavel = consulta.getNutricionista();
-        int consultasAtuais = nutriResponsavel.getNumeroConsultas();
-        nutriResponsavel.setNumeroConsultas(consultasAtuais + 1);
+        int consultasAtuais = nutriResponsavel.getNumeroConsulta();
+        nutriResponsavel.setNumeroConsulta(consultasAtuais + 1);
 
         System.out.println("Consulta agendada para " + consulta.getNomePaciente() +
                 " em " + consulta.getDataHoraFormatada());
@@ -62,8 +62,8 @@ public final class ConsultasImpl implements IConsultaManager {
             Nutricionista nutri = consultaRemovida.getNutricionista();
 
 
-            if (nutri.getNumeroConsultas() > 0) {
-                nutri.setNumeroConsultas(nutri.getNumeroConsultas() - 1);
+            if (nutri.getNumeroConsulta() > 0) {
+                nutri.setNumeroConsulta(nutri.getNumeroConsulta() - 1);
             }
 
             System.out.println("Consulta de " + consultaRemovida.getNomePaciente() + " foi removida com sucesso.");
@@ -74,7 +74,7 @@ public final class ConsultasImpl implements IConsultaManager {
             System.err.println("A lista tem " + this.ListaConsultas.size() + " itens (índices de 0 a " + (this.ListaConsultas.size() - 1) + ").");
 
         } catch (Exception e) {
-            // 8. Tratamento de Erro: Captura genérica para outros erros inesperados
+
             System.err.println("Um erro inesperado ocorreu ao deletar a consulta: " + e.getMessage());
         }
     }
