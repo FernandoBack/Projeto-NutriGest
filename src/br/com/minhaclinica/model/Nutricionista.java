@@ -19,7 +19,7 @@ package br.com.minhaclinica.model;
             return numeroConsulta;
         }
         /**
-         * @param numeroConsultas O número (deve ser >= 0).
+         * @param numeroConsulta O número (deve ser >= 0).
          * @throws IllegalArgumentException Se o número for inválido.
          */
         public void setNumeroConsulta(int numeroConsulta) {
